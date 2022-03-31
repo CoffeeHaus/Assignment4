@@ -23,8 +23,8 @@ void printNames( )
 {
     /* TODO : Fill in you and your partner's names (or N/A if you worked individually) */
     printf("\nThis solution was completed by:\n");
-    printf("<student name #1>\n");
-    printf("<student name #2 (if no partner write \"N/A\")>\n\n");
+    printf("Samantha Murray\n");
+    printf("Andrew Neumann\n\n");
 }
 
 /* createTree

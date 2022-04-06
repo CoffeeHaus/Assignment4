@@ -21,7 +21,6 @@ int subTreeHeight(TNode* root);
  */
 void printNames( )
 {
-    /* TODO : Fill in you and your partner's names (or N/A if you worked individually) */
     printf("\nThis solution was completed by:\n");
     printf("Samantha Murray\n");
     printf("Andrew Neumann\n\n");
@@ -401,7 +400,37 @@ int getBalance(TNode* root){
  *
  */
 void printHuffmanEncoding( TNode* root, char c ){
-    //TODO
+    
+    bool notFound = 1;
+    TNode * currentRoot = root;
+    char  output[50] = "";
+    while (notFound)
+    {
+        //check to see if not is destination
+        if (!strcmp(currentRoot->str, &c))
+        {
+            notFound = 0;// break loop
+        }
+        //check left side 
+        else if (strchr(currentRoot->pLeft->str, c))
+        {
+            strcat(output, "0");
+            currentRoot = currentRoot->pLeft;
+        }
+        //check right side
+        else if (strchr(currentRoot->pRight->str, c))
+        {
+            strcat(output, "1");
+            currentRoot = currentRoot->pRight;
+        }
+        else //Error checking
+        {
+            printf("!!Character not found in either side.");
+            break;
+            
+        }
+    }//end while loop
+    printf("%s", output);
 
 }
 

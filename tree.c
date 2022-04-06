@@ -400,7 +400,8 @@ int getBalance(TNode* root){
  *
  */
 void printHuffmanEncoding( TNode* root, char c ){
-    
+
+    printf("start of printHuffmanEncoding");
     bool notFound = 1;
     TNode * currentRoot = root;
     char  output[50] = "";
@@ -411,14 +412,14 @@ void printHuffmanEncoding( TNode* root, char c ){
         {
             notFound = 0;// break loop
         }
-        //check left side 
-        else if (strchr(currentRoot->pLeft->str, c))
+        //Checks for a nonnull left side then looks for char 
+        else if (currentRoot->pLeft && strchr(currentRoot->pLeft->str, c))
         {
             strcat(output, "0");
             currentRoot = currentRoot->pLeft;
         }
-        //check right side
-        else if (strchr(currentRoot->pRight->str, c))
+        //Checks for a nonnull right side then looks for char 
+        else if (currentRoot->pLeft && strchr(currentRoot->pRight->str, c))
         {
             strcat(output, "1");
             currentRoot = currentRoot->pRight;

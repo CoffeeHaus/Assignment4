@@ -292,7 +292,33 @@ void updateHeights(TNode* root){
  * For additional help in testing set the parameters PRINT_AVL_TREE and PRINT_AVL_ERRORS to true in the driver
  */
 void rebalanceTree(Tree* t, TNode* x){
-    //TODO
+    /* Reminder: the balance of x is the height of the left subtree of x - height of the right subtree
+    of x.
+    (1) Let x be the node we are starting our rebalance from
+    (2) While x is not NULL
+    1 if the balance of x is ≤ −2 or ≥ 2
+    (i) Set z equal to the child of x with the greater height
+    (ii) if the balance of x and the balance of z have different signs
+    (A) if the sign of the balance of z is + right rotate on z
+    (B) otherwise the balance is − so you left rotate on z
+    (iii) if the balance of x is ≥ 2 right rotate on x
+    (iv) otherwise the balance is ≤ −2 so you left rotate on x
+    2 Set x equal to the parent of x*/
+    TNode * z;
+    while(x)
+        {
+            if(getBalance(x) <= -2 && getBalance(x) >= 2)
+            {
+                //ternary operator :P  it will assign z as the node with the larger height
+                z = x->pLeft->height > x->pRight->height ? x->pLeft : x->pRight;
+                
+                //xors the balance of x and z, this checks to see if they are the same sign.
+                if((getBalance(x) ^ getBalance(z)) < 0)
+                {
+                 rightRotate(z);   
+                }
+            }
+        }
 
 }
 

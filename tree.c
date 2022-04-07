@@ -307,18 +307,52 @@ void rebalanceTree(Tree* t, TNode* x){
     TNode * z;
     while(x)
         {
-            if(getBalance(x) <= -2 && getBalance(x) >= 2)
+            if(getBalance(x) <= -2 || getBalance(x) >= 2)
             {
                 //ternary operator :P  it will assign z as the node with the larger height
-                z = x->pLeft->height > x->pRight->height ? x->pLeft : x->pRight;
+                if (x->pLeft && x->pRight)
+                {
+                    //ternary operator :P  it will assign z as the node with the larger height
+                    z = x->pLeft->height > x->pRight->height ? x->pLeft : x->pRight;
+                }
+                else if (x->pLeft)
+                {
+                    z = x->pLeft;
+                }
+                else if (x->pRight)
+                {
+                    z = x->pRight;
+                }
+                else
+                {
+                    z = NULL;
+                }
+                
                 
                 //xors the balance of x and z, this checks to see if they are the same sign.
                 if((getBalance(x) ^ getBalance(z)) < 0)
                 {
-                 rightRotate(z);   
+                    if (getBalance(z) > 0)
+                    {
+                        rightRotate(t, z);
+                    }
+                    else
+                    {
+                        leftRotate(t, z);
+                    }
+                
+                }
+                if (getBalance(x) >= 2)
+                {
+                    rightRotate(t, x);
+                }
+                else if (getBalance(x) <= -2)
+                {
+                    leftRotate(t, x);
                 }
             }
-        }
+            x = x->pParent;
+        }//end of while loop
 
 }
 

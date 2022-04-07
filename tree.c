@@ -524,7 +524,25 @@ TNode* constructSegmentTree( double* points, int low, int high ){
  * Recursively inserts given line segment from segmentStart to segmentEnd into the tree
  */
 void insertSegment( TNode* root, double segmentStart, double segmentEnd ){
-    //TODO
+    
+    // Checks for invalid call
+    if (!root) return;
+
+    //checks to see if the current node even contains any of the range.
+    else if (root->low > segmentEnd || root->high < segmentStart)
+    {
+        return;
+    }
+    //If the segment is completely within the range.
+    else if (root->low >= segmentStart && root->high <= segmentEnd)
+    {
+        root->cnt++; // add one to cnt
+    }
+    else
+    {
+        if (root->pLeft) insertSegment(root->pLeft, segmentStart, segmentEnd); 
+        if (root->pRight) insertSegment(root->pRight, segmentStart, segmentEnd);
+    }
 
 }
 
@@ -535,9 +553,20 @@ void insertSegment( TNode* root, double segmentStart, double segmentEnd ){
  * Recursively count the number of line segments which intersect the queryPoint.
  */
 int lineStabQuery( TNode* root, double queryPoint ){
-    //TODO
 
-    return -1;
+    if (!root) return 0;
+    else if (root->low > queryPoint || root->high < queryPoint)
+    {
+        return 0;
+    }
+    else
+    {
+        int total = root->cnt;
+        if (root->pLeft) total += lineStabQuery(root->pLeft, queryPoint);
+        if (root->pRight) total += lineStabQuery(root->pRight, queryPoint);
+        return total;
+    }
+    
 }
 
 

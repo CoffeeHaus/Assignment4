@@ -461,17 +461,18 @@ int getBalance(TNode* root){
  */
 void printHuffmanEncoding( TNode* root, char c ){
 
-    printf("start of printHuffmanEncoding");
-    bool notFound = 1;
+    //Programmer note: I did not use recursion, since it wasn't required in the documentation.
+    // I believe that the while loop works better with less overhead.
+
+    bool notFound = 10000;
     TNode * currentRoot = root;
-    char  output[50] = "";
+    char  output[100] = "";
+
     while (notFound)
     {
         //check to see if not is destination
-        if (!strcmp(currentRoot->str, &c))
-        {
-            notFound = 0;// break loop
-        }
+        if (!strcmp(currentRoot->str, &c)) break;
+
         //Checks for a nonnull left side then looks for char 
         else if (currentRoot->pLeft && strchr(currentRoot->pLeft->str, c))
         {
@@ -490,6 +491,7 @@ void printHuffmanEncoding( TNode* root, char c ){
             break;
             
         }
+        --notFound;// does not allow for infinite looping
     }//end while loop
     printf("%s", output);
 
@@ -536,7 +538,7 @@ void insertSegment( TNode* root, double segmentStart, double segmentEnd ){
     //If the segment is completely within the range.
     else if (root->low >= segmentStart && root->high <= segmentEnd)
     {
-        root->cnt++; // add one to cnt
+        root->cnt++; // add one to count
     }
     else
     {
@@ -554,11 +556,16 @@ void insertSegment( TNode* root, double segmentStart, double segmentEnd ){
  */
 int lineStabQuery( TNode* root, double queryPoint ){
 
+    //Checks for invalid call
     if (!root) return 0;
+
+    //Checks to see if query point is within this node's range
     else if (root->low > queryPoint || root->high < queryPoint)
     {
         return 0;
     }
+
+    //Else recusivly keep moving down, while passing up node's count 
     else
     {
         int total = root->cnt;
